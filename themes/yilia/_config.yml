@@ -2,12 +2,12 @@
 
 menu:
   主页: /
-  关于: /
+  关于: /about
 
 # SubNav
 subnav:
   github: "https://github.com/bibi7"
-  weibo: "https://weibo.com/u/2806510710/home"
+  weibo: "https://weibo.com/u/2806510710"
   # rss: "#"
   zhihu: "https://www.zhihu.com/people/bi-bi-50-62"
   #qq: "#"
