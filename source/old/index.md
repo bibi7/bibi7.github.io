@@ -1,7 +1,8 @@
 ---
-title: old
+title: 以下是旧博入口
+date: 2018-06-01
 ---
 
-旧博客入口：[casanover](https://blog.csdn.net/wzj2584454)
+CSDN：[casanover](https://blog.csdn.net/wzj2584454)
 
 目前已停
