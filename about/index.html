@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>bibi</title>
+  <title>关于我 | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="bibi">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="前端 95年，香港人，现居上海 不定时出没在 知乎\ b站 \ 微博 喜欢lol，打下路，ad一生信仰 你好  对了，今天是六一哦，节日快乐">
+<meta property="og:type" content="website">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="http://yoursite.com/about/index.html">
 <meta property="og:site_name" content="bibi">
+<meta property="og:description" content="前端 95年，香港人，现居上海 不定时出没在 知乎\ b站 \ 微博 喜欢lol，打下路，ad一生信仰 你好  对了，今天是六一哦，节日快乐">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-03T07:46:21.676Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bibi">
+<meta name="twitter:title" content="关于我">
+<meta name="twitter:description" content="前端 95年，香港人，现居上海 不定时出没在 知乎\ b站 \ 微博 喜欢lol，打下路，ad一生信仰 你好  对了，今天是六一哦，节日快乐">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -152,98 +156,57 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-httpCache" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="page-" class="article article-type-page " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/03/httpCache/">彻底了解缓存从而区分200与304状态码</a>
+    <h1 class="article-title" itemprop="name">
+      关于我
     </h1>
   
 
         
-        <a href="/2018/06/03/httpCache/" class="archive-article-date">
-  	<time datetime="2018-06-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-03</time>
+        <a href="/about/index.html" class="archive-article-date">
+  	<time datetime="2018-05-31T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>关于http缓存，感觉其实还是有点朦胧，解释不大清楚，趁着最近看了几篇文章，写一下自己的理解。</p>
-<h2 id="关于缓存"><a href="#关于缓存" class="headerlink" title="关于缓存"></a>关于缓存</h2><p>所有的资源都从服务器拉，如果在大量资源的情况下，造成的结果就是可能会造成一个比较长的的等待时间，从优化的角度上来说是不太能忍的_(:з」∠)_，所以为了提高页面的访问速度，在进行资源访问的时候，浏览器会根据资源返回的<strong>header</strong>头来进行相应的缓存设置。可能采用的是强缓，也可能会采用协商缓存。</p>
+        <p>前端</p>
+<p>95年，香港人，现居上海</p>
+<p>不定时出没在 <a href="https://www.zhihu.com/people/bi-bi-50-62/activities" target="_blank" rel="noopener">知乎</a>\ <a href="https://space.bilibili.com/387791/#/" target="_blank" rel="noopener">b站</a> \ <a href="https://weibo.com/u/2806510710" target="_blank" rel="noopener">微博</a></p>
+<p>喜欢lol，打下路，ad一生信仰</p>
+<p>你好</p>
 <p><br></p>
-<h2 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h2><p>返回的<strong>header</strong>头会包含着一些有关于缓存机制的描述信息，客户端直接根据描述信息进行操作（如果缓存命中则返回200），其中和强制缓存相关的字段为<code>Expires</code>和<code>Cache-Control</code>。这两个字段主要是用来区分缓存的过期时间，具体区别如下：</p>
-<p><code>Expires</code>是http1.0的规范，格式是一个GMT时间格式的字符串，如Sun Jun 03 2018 14:47:26 GMT，是服务器返回的资源到期时间，如果请求的时间在该时间之前则视为有效。但一个隐藏的问题是，该时间是由服务端产生的， 所以可能会和客户端的时间存在着误差。</p>
-<p><code>Cache-Control</code>是http1.1的规范，常见的值主要有<code>private</code>，<code>public</code>，<code>no-cache</code>，<code>max-age</code>，<code>no-store</code>。</p>
-<table>
-<thead>
-<tr>
-<th>type</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>private</td>
-<td>只允许终端用户缓存</td>
-</tr>
-<tr>
-<td>public</td>
-<td>所有用户都可以缓存，包括终端用户和CDN</td>
-</tr>
-<tr>
-<td>no-cache</td>
-<td>不使用本地缓存，只使用协商缓存</td>
-</tr>
-<tr>
-<td>max-age</td>
-<td>值为一个数字，缓存内容将在一定的时间后失效</td>
-</tr>
-<tr>
-<td>no-store</td>
-<td>禁止缓存，每一次请求都从服务器拉资源下来</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h2 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h2><p>协商缓存和强制缓存不一样，具体的区分为，协商缓存需要判断改缓存是否可用。<br>协商缓存都是由服务器来确定缓存资源是否可用的，所以客户端与服务器端要通过某种标识来进行通信，从而让服务器判断请求资源是否可用。<br>主要涉及到以下四个字段：<code>Last-Modified</code>，<code>If-Modified-Since</code>，<code>Etag</code>，<code>If-None-Match</code></p>
-<table>
-<thead>
-<tr>
-<th>type</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Last-Modified</td>
-<td><strong>为一个GMT格式的时间</strong>， 在浏览器第一次访问一个资源时，服务器在返回这个资源的同时，在响应头的header加上Last-Modified，这个header表示这个资源在服务器上的最后修改时间</td>
-</tr>
-<tr>
-<td>If-Modified-Since</td>
-<td>当再次访问该资源时，请求头上会包含该字段，值为上次缓存下来的值，服务器获取该值并进行比对，从而判定资源是否已被更改，如果资源被改动则返回资源并且状态码为200，如果资源尚未改动，则返回304，浏览器直接从缓存加载资源</td>
-</tr>
-<tr>
-<td>Etag</td>
-<td>与上文的标识符为时间不同，etag的标识符为一串由服务器规则生成的字符，与上两者的区别主要在于<strong>标识符</strong>的不同，其余一样</td>
-</tr>
-<tr>
-<td>If-None-Match</td>
-<td>同上</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h2 id="其他的一些该注意的点"><a href="#其他的一些该注意的点" class="headerlink" title="其他的一些该注意的点"></a>其他的一些该注意的点</h2><p>1.强制缓存的优先级比协商缓存高。<br>2.Etag和Last-Modified可同时存在，并且优先检测Etag，再检测Last-Modified</p>
-<font face="黑体" size="2px" color="#a6a6a6">命中这个词用的真好</font>
+<font face="黑体" size="2px" color="#a6a6a6">对了，今天是六一哦，节日快乐</font>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -252,16 +215,65 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/03/httpCache/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/about/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -281,78 +293,14 @@
 
 
 
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/30/hello-world/">搬家</a>
-    </h1>
   
 
-        
-        <a href="/2018/05/30/hello-world/" class="archive-article-date">
-  	<time datetime="2018-05-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>折腾了一晚上，终于搭建起来了。_(:з」∠)_</p>
-<p>最近被csdn的广告烦扰，想了想还是自己搭一个，毕竟早晚的事情。</p>
-<p>新博客基于<strong>Hexo + github pages</strong>, 主题是<strong>Yilia</strong>, 还是蛮清爽的⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄。</p>
-<p>接下来折腾一下多台设备部署，毕竟有时候在公司灵感来了也想写点东西。暂时就这样啦。</p>
-<p>还要另开一个篇介绍一下自己，这个到时候再弄！</p>
-<p>旧博客：<a href="https://blog.csdn.net/wzj2584454" target="_blank" rel="noopener">casanover</a></p>
-<p>暂时先这样，晚点还需添加一个about me。</p>
-<p>enjoys ;)</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/30/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -375,7 +323,7 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
 		isArchive: false,
 		isTag: false,
