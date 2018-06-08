@@ -19,11 +19,11 @@ websocket最大的特点就是：**服务器可以主动向客户端推送消息
 带来的好处显而易见，减少了无意义的重复请求使得资源开销更低的同时，服务端主动推送也让通信也更高效。
 
 ## 简单的示例
-```
+```javascript
 const ws = new WebSocket("wss://echo.websocket.org");
 
-ws.onopen = (evt) => { 
-  console.log("Connection open ..."); 
+ws.onopen = (evt) => {
+  console.log("Connection open ...");
   ws.send("Hello WebSockets!");
 };
 
@@ -50,11 +50,11 @@ ws.onclose = (evt) => {
 `WebSocket.onmessage`用于指定收到服务器数据后所执行的回调
 `WebSocket.onerror`用于指定报错时所执行的回调
 `WebSocket.send`用于向服务器发送数据
-```
+```javascript
 ws.send('send some message')
 ```
 实例对象的`bufferedAmount`属性用来表示还剩余多少的二进制数据尚未发送，可用来判断发送是否结束。
-```
+```javascript
 const data = new ArrayBuffer(1000000);
 ws.send(data);
 
