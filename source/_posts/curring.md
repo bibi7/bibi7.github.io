@@ -61,8 +61,6 @@ const curring = function () {
 };
 const add = curring();
 
-const add = curring();
-
 
 //下面三者等价
 add(1, 2)(3, 4)(5); //15
