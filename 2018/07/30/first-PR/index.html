@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>柯里化(Curring) | bibi</title>
+  <title>pull request | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="谈到这个就有点头大。。其实我还是蛮惧怕柯里化的，感觉就像大山一样，不过总要跨过去的是吧(╥╯^╰╥)  柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。  说得简单点：  只传递函数一部分的参数来调用他，并且返回一个函数去处理剩下的参数，也叫作部分求值  还是举一个老掉牙的栗子 123functi">
+  <meta name="description" content="自从第一次提交pr以后，总是想着万一过了，我也算是为vue添砖加瓦了。 还是有点小激动的。 但真当看到merge了以后，也不知道是什么滋味，其实并没有想象中的那么兴奋？ 不过这肯定不会是最后一次merge的，对吧。 要加油啊。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="柯里化(Curring)">
-<meta property="og:url" content="http://yoursite.com/2018/06/08/curring/index.html">
+<meta property="og:title" content="pull request">
+<meta property="og:url" content="http://yoursite.com/2018/07/30/first-PR/index.html">
 <meta property="og:site_name" content="bibi">
-<meta property="og:description" content="谈到这个就有点头大。。其实我还是蛮惧怕柯里化的，感觉就像大山一样，不过总要跨过去的是吧(╥╯^╰╥)  柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。  说得简单点：  只传递函数一部分的参数来调用他，并且返回一个函数去处理剩下的参数，也叫作部分求值  还是举一个老掉牙的栗子 123functi">
+<meta property="og:description" content="自从第一次提交pr以后，总是想着万一过了，我也算是为vue添砖加瓦了。 还是有点小激动的。 但真当看到merge了以后，也不知道是什么滋味，其实并没有想象中的那么兴奋？ 不过这肯定不会是最后一次merge的，对吧。 要加油啊。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-09T03:22:19.437Z">
+<meta property="og:image" content="http://yoursite.com/2018/07/30/imgs/pr1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/07/30/imgs/pr2.jpg">
+<meta property="og:updated_time" content="2018-10-08T12:59:36.116Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="柯里化(Curring)">
-<meta name="twitter:description" content="谈到这个就有点头大。。其实我还是蛮惧怕柯里化的，感觉就像大山一样，不过总要跨过去的是吧(╥╯^╰╥)  柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。  说得简单点：  只传递函数一部分的参数来调用他，并且返回一个函数去处理剩下的参数，也叫作部分求值  还是举一个老掉牙的栗子 123functi">
+<meta name="twitter:title" content="pull request">
+<meta name="twitter:description" content="自从第一次提交pr以后，总是想着万一过了，我也算是为vue添砖加瓦了。 还是有点小激动的。 但真当看到merge了以后，也不知道是什么滋味，其实并没有想象中的那么兴奋？ 不过这肯定不会是最后一次merge的，对吧。 要加油啊。">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/30/imgs/pr1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -156,45 +159,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-curring" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-first-PR" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      柯里化(Curring)
+      pull request
     </h1>
   
 
         
-        <a href="/2018/06/08/curring/" class="archive-article-date">
-  	<time datetime="2018-06-07T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-08</time>
+        <a href="/2018/07/30/first-PR/" class="archive-article-date">
+  	<time datetime="2018-07-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>谈到这个就有点头大。。<br>其实我还是蛮惧怕柯里化的，感觉就像大山一样，不过总要跨过去的是吧(╥╯^╰╥)</p>
-<blockquote>
-<font face="黑体" size="2px" color="#a6a6a6">柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。</font>
-</blockquote>
-<p>说得简单点：</p>
-<blockquote>
-<font face="黑体" size="2px" color="#a6a6a6">只传递函数一部分的参数来调用他，并且返回一个函数去处理剩下的参数，也叫作部分求值</font>
-</blockquote>
-<p>还是举一个老掉牙的栗子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b + c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么这个时候add的柯里化_add可以为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_add</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> a + b + c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>因此以下两个运算都是等价的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">_add(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)</span><br></pre></td></tr></table></figure></p>
-<p>简单来说，柯里化其实就是一个<strong>参数收集</strong>的过程，将每一次传入的参数收集起来，然后在最里层再进行处理。</p>
-<p>接下来自己手动实现一个简单的柯里化累加。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> curring = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//保存所有的参数</span></span><br><span class="line">    <span class="keyword">let</span> _args = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123; <span class="comment">//这里之所以多了fn是因为避免使用argument.callee</span></span><br><span class="line">        <span class="comment">//没有args，表明没有参数了</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">arguments</span>.length === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> _args.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//继续存入参数</span></span><br><span class="line">        _args.push(...arguments);</span><br><span class="line">        <span class="keyword">return</span> fn;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> add = curring();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面三者等价</span></span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>)(<span class="number">3</span>, <span class="number">4</span>)(<span class="number">5</span>); <span class="comment">//15</span></span><br><span class="line">add(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)(<span class="number">4</span>, <span class="number">5</span>); <span class="comment">//15</span></span><br><span class="line">add(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)(<span class="number">4</span>)(<span class="number">5</span>); <span class="comment">//15</span></span><br></pre></td></tr></table></figure>
-<p>完工！⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄</p>
-<p>这篇blog算是很简单的，不能够特别明显的凸显柯里化的优势，主要目的还是初识一下柯里化本身。</p>
-<p>当然，柯里化通用式具备更加强大的能力，我们靠眼力自己封装的柯里化函数则自由度偏低，柯里化函数的运行过程其实是一个参数的收集过程，我们将每一次传入的参数收集起来，并在最里层里面处理。所以借助这个方式可以总结出一份柯里化的通用式。<br>这里借用梧桐大大的currying通用式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单实现，参数只能从右到左传递</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCurry</span>(<span class="params">func, args</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> arity = func.length;  <span class="comment">//函数的length表示形参个数</span></span><br><span class="line">    <span class="keyword">var</span> args = args || [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> _args = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">        [].push.apply(_args, args);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果参数个数小于最初的func.length，则递归调用，继续收集参数</span></span><br><span class="line">        <span class="keyword">if</span> (_args.length &lt; arity) &#123;</span><br><span class="line">            <span class="keyword">return</span> createCurry.call(<span class="keyword">this</span>, func, _args);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 参数收集完毕，则执行func</span></span><br><span class="line">        <span class="keyword">return</span> func.apply(<span class="keyword">this</span>, _args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check</span>(<span class="params">targetString, reg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> reg.test(targetString);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _check = createCurry(check);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> checkPhone = _check(<span class="regexp">/^1[34578]\d&#123;9&#125;$/</span>);</span><br><span class="line"><span class="keyword">var</span> checkEmail = _check(<span class="regexp">/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">checkPhone(<span class="string">'183888888'</span>);</span><br><span class="line">checkEmail(<span class="string">'xxxxx@test.com'</span>);</span><br></pre></td></tr></table></figure></p>
-<font face="黑体" size="2px" color="#a6a6a6">明天就是周六了</font>
+        <p>自从第一次提交pr以后，总是想着万一过了，我也算是为vue添砖加瓦了。</p>
+<p>还是有点小激动的。</p>
+<p>但真当看到merge了以后，也不知道是什么滋味，其实并没有想象中的那么兴奋？</p>
+<p>不过这肯定不会是最后一次merge的，对吧。</p>
+<p>要加油啊。</p>
+<p><img src="../imgs/pr1.jpg" alt="pr1"><br><img src="../imgs/pr2.jpg" alt="pr2"></p>
 
       
 
@@ -274,7 +264,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/06/08/curring/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/07/30/first-PR/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,18 +278,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/06/14/qingyun/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/10/08/react/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          金光布袋戏28集有感
+          react
         
       </div>
     </a>
   
   
-    <a href="/2018/06/07/websocket/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">websocket</div>
+    <a href="/2018/07/23/1080/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">最近的日常</div>
       <i class="icon-circle-right"></i>
     </a>
   
