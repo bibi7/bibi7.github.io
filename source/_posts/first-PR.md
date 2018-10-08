@@ -1,5 +1,5 @@
 ---
-title: pull request 
+title: pull request
 date: 2018-07-30
 ---
 
@@ -15,4 +15,3 @@ date: 2018-07-30
 
 ![pr1](../imgs/pr1.jpg)
 ![pr2](../imgs/pr2.jpg)
-
