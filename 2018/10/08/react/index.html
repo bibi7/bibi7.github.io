@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="bibi">
 <meta property="og:description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-09T13:37:21.684Z">
+<meta property="og:updated_time" content="2018-10-09T13:45:26.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react">
 <meta name="twitter:description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
@@ -183,11 +183,11 @@
 <p>占个坑，待续。</p>
 <h2 id="几种创建react组件的方式"><a href="#几种创建react组件的方式" class="headerlink" title="几种创建react组件的方式"></a>几种创建react组件的方式</h2><ol>
 <li>函数式的定义的无状态组件</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. ```extends React.Component</span><br></pre></td></tr></table></figure>
-</li>
+<li><code>React.creatClass</code></li>
+<li><code>extends React.Component</code></li>
 </ol>
-<p>第一种，简单的无状态组件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;`hello$&#123;props.name&#125;`&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>ReactDOM.render(<hello name="bibi">, mountNode)<br>无状态组件一般为纯展示用组件，不涉及到state以及交互，无状态的函数式组件只根据传入的props进行展示。<br><strong>只要有可能，尽可能地使用无状态组件</strong></hello></p>
+<p>第一种，简单的无状态组件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;`hello$&#123;props.name&#125;`&lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(&lt;Hello name="bibi" /&gt;, mountNode)</span><br></pre></td></tr></table></figure></p>
+<p>无状态组件一般为纯展示用组件，不涉及到state以及交互，无状态的函数式组件只根据传入的props进行展示。<br><strong>只要有可能，尽可能地使用无状态组件</strong></p>
 <p>第二种，creatClass方式：</p>
 <p>待续。</p>
 <!--
