@@ -20,16 +20,16 @@ date: 2018-10-08
 
 ## 几种创建react组件的方式
 1. 函数式的定义的无状态组件
-2. ```React.creatClass```
-3. ```extends React.Component```
+2. `React.creatClass`
+3. `extends React.Component`
 
 第一种，简单的无状态组件：
 ```javascript
 function Hello() {
   return <div>`hello${props.name}`</div>
 }
+ReactDOM.render(<Hello name="bibi" />, mountNode)
 ```
-ReactDOM.render(<Hello name="bibi"/>, mountNode)
 无状态组件一般为纯展示用组件，不涉及到state以及交互，无状态的函数式组件只根据传入的props进行展示。
 **只要有可能，尽可能地使用无状态组件**
 
