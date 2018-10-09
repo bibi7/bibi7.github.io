@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>react | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="算是一点个人笔记吧">
+  <meta name="description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react">
 <meta property="og:url" content="http://yoursite.com/2018/10/08/react/index.html">
 <meta property="og:site_name" content="bibi">
-<meta property="og:description" content="算是一点个人笔记吧">
+<meta property="og:description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-08T13:20:44.946Z">
+<meta property="og:updated_time" content="2018-10-09T13:37:21.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react">
-<meta name="twitter:description" content="算是一点个人笔记吧">
+<meta name="twitter:description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -176,13 +176,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>算是一点个人笔记吧</p>
+        <p>算是一点个人笔记吧<br>看到觉得不妥之处的话随时欢迎提issue或者pr</p>
 <a id="more"></a>
 <h3 id="起手"><a href="#起手" class="headerlink" title="起手"></a>起手</h3><p>我本以为我短时间内不会学react的，毕竟我是那么的深爱vue（你给我住口！<br>在上一篇还是在为vue提pr，这一篇立马变成react入门的情况下好像并没有太大的说服力，可是陆金所真的没有vueQAQ</p>
 <p>为了不被公司赶出去，行叭！学就学叭！</p>
 <p>占个坑，待续。</p>
+<h2 id="几种创建react组件的方式"><a href="#几种创建react组件的方式" class="headerlink" title="几种创建react组件的方式"></a>几种创建react组件的方式</h2><ol>
+<li>函数式的定义的无状态组件</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. ```extends React.Component</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>第一种，简单的无状态组件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;div&gt;`hello$&#123;props.name&#125;`&lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ReactDOM.render(<hello name="bibi">, mountNode)<br>无状态组件一般为纯展示用组件，不涉及到state以及交互，无状态的函数式组件只根据传入的props进行展示。<br><strong>只要有可能，尽可能地使用无状态组件</strong></hello></p>
+<p>第二种，creatClass方式：</p>
+<p>待续。</p>
 <!--
-## state
+## state和props
 ## 生命周期
 ## 有状态、无状态组件
 ## redux
