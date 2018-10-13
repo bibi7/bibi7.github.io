@@ -34,12 +34,38 @@ ReactDOM.render(<Hello name="bibi" />, mountNode)
 **只要有可能，尽可能地使用无状态组件**
 
 第二种，creatClass方式：
+```javascript
+const Hello = React.creatClass({
+  getInitialState() {
+    return {
+      name: 'bibi'
+    }
+  }
+  render() {
+    return <div>`hello${this.name}`</div>
+  }
+})
+```
 
-待续。
+第三种，es6的calss方式
+```javascript
+class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'bibi'
+    }
+  }
+  render() {
+    return <div>hello, {this.name}</div>  
+  }
+}
+```
+二和三被称为有状态组件，有着内部的状态`state`,放在`getInitialState`中，以`class`创建的方式，`state`直接写在`constructor`内即可。
+现今开发中最常用为第三种
 
-<!--
-## state和props
+
 ## 生命周期
-## 有状态、无状态组件
-## redux
--->
+![react](../imgs/React-life-cycle.jpg)
+
+<!--## state和props-->
