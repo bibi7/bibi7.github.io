@@ -15,12 +15,12 @@
 <meta property="og:site_name" content="bibi">
 <meta property="og:description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2018/10/08/imgs/React-life-cycle.jpg">
-<meta property="og:updated_time" content="2018-10-13T08:22:39.390Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/08/imgs/o.jpg">
+<meta property="og:updated_time" content="2018-10-13T08:24:21.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react">
 <meta name="twitter:description" content="算是一点个人笔记吧看到觉得不妥之处的话随时欢迎提issue或者pr">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/08/imgs/React-life-cycle.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/08/imgs/o.jpg">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -193,7 +193,7 @@
 <p>第二种，creatClass方式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Hello = React.creatClass(&#123;</span><br><span class="line">  getInitialState() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      name: <span class="string">'bibi'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;`hello$&#123;this.name&#125;`&lt;/div&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>第三种，es6的calss方式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hello</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      name: <span class="string">'bibi'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;div&gt;hello, &#123;this.name&#125;&lt;/div&gt;  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>二和三被称为有状态组件，有着内部的状态<code>state</code>,放在<code>getInitialState</code>中，以<code>class</code>创建的方式，<code>state</code>直接写在<code>constructor</code>内即可。<br>现今开发中最常用为第三种</p>
-<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p><img src="../imgs/React-life-cycle.jpg" alt="react"></p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p><img src="../imgs/o.jpg" alt="react"></p>
 <!--## state和props-->
 
       
