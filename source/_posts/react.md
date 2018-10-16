@@ -62,10 +62,11 @@ class Hello extends React.Component {
 }
 ```
 二和三被称为有状态组件，有着内部的状态`state`,放在`getInitialState`中，以`class`创建的方式，`state`直接写在`constructor`内即可。
-现今开发中最常用为第三种
+现今开发中最常用为第三种，同时react组件必须 **大写开头**
 
 
 ## 生命周期
-![react](../imgs/React-life-cycle.jpg)
+
+![react](/imgs/React-life-cycle.jpg)
 
 <!--## state和props-->
