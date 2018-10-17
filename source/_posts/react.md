@@ -15,7 +15,6 @@ date: 2018-10-08
 
 为了不被公司赶出去，行叭！学就学叭！
 
-占个坑，待续。
 
 
 ## 几种创建react组件的方式
@@ -35,13 +34,13 @@ ReactDOM.render(<Hello name="bibi" />, mountNode)
 
 第二种，creatClass方式：
 ```javascript
-const Hello = React.creatClass({
-  getInitialState() {
+var Hello = React.creatClass({
+  getInitialState: function() {
     return {
       name: 'bibi'
     }
   }
-  render() {
+  render: function() {
     return <div>`hello${this.name}`</div>
   }
 })
@@ -68,5 +67,14 @@ class Hello extends React.Component {
 ## 生命周期
 
 ![react](/imgs/React-life-cycle.jpg)
-
+1. `getDefaultProps()` 设置默认的props
+2. `getInitialState()` 获取自身组件的state，es6中直接放到了`constructor`定义state，使用`this.state`就可以访问。
+3. `componentWillMount()` 在挂载前触发，一般来说只会触发一次，可以在这里访问state。
+4. `render()` 创建虚拟dom，进行diff算法，而且更新dom树也采用此方法，在挂载后更新`state`也会重新触发此方法。
+5. `componentDidMount()` 挂载后调用。
+6. `componentWillReceiveProps(nextProps)` 在获得新的`props`时候调用，可以访问到此时的`props`和新的`props`。
+7. `shouldComponentUpdate(nextProps, nextState)` 组件接受新的state或者props时调用，返回false时会阻止更新
+8. `componentWillUpdata(nextProps, nextState)` 组件即将更新时调用。
+9. `componentDidUpdate()` 完成更新时调用。
+10. `componentWillUnmount()` 即将卸载时调用。
 <!--## state和props-->
