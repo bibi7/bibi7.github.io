@@ -3,7 +3,7 @@ title: restart animation
 date: 2018-12-02
 ---
 
-玩demo的时候碰到了需要重复出发animation的需要，稍微研究了一哈，主流的做法好像是写一个一模一样的animation然后切换使得出发动效？
+玩demo的时候碰到了需要重复触发animation的需要，稍微研究了一哈，主流的做法好像是写一个一模一样的animation然后切换使得触发动效？
 
 虽然感觉这方法怪蠢的，暂时没想到更好的，先记一下。
 
