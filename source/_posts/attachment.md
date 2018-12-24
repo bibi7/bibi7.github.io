@@ -23,12 +23,11 @@ date: 2018-12-24
 ## 栗子
 
 有这么一个场景 **like this ↓**：
-![text](https://github.com/bibi7/bibi7.github.io/blob/1ec32f39ff08b833f81ee789ba669b46a33c93f3/attach1.gif)
-
+![text](/imgs/attach1.gif)
 
 
 加上了之后 **like this ↓**：
-![text](https://github.com/bibi7/bibi7.github.io/blob/1ec32f39ff08b833f81ee789ba669b46a33c93f3/attach2.gif)
+![text](/imgs/attach2.gif)
 
 
 这一部分的代码简单的很，就不贴了。（其实是今天太冷了不是很想打太多字嘻嘻😉
