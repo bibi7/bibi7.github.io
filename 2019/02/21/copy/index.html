@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | bibi</title>
+  <title>js中的深浅拷贝 | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="bibi">
-<meta property="og:url" content="http://yoursite.com/archives/2018/page/2/index.html">
+  <meta name="description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠)， 干脆写篇深浅拷贝的总结好了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js中的深浅拷贝">
+<meta property="og:url" content="http://yoursite.com/2019/02/21/copy/index.html">
 <meta property="og:site_name" content="bibi">
+<meta property="og:description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠)， 干脆写篇深浅拷贝的总结好了">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-22T15:52:36.174Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bibi">
+<meta name="twitter:title" content="js中的深浅拷贝">
+<meta name="twitter:description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠)， 干脆写篇深浅拷贝的总结好了">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -152,79 +156,165 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-copy" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/03/httpCache/" class="archive-article-date">
-  	<time datetime="2018-06-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-03</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/03/httpCache/">彻底了解缓存从而区分200与304状态码</a>
+    <h1 class="article-title" itemprop="name">
+      js中的深浅拷贝
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/30/hello-world/" class="archive-article-date">
-  	<time datetime="2018-05-29T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
+        
+        <a href="/2019/02/21/copy/" class="archive-article-date">
+  	<time datetime="2019-02-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/30/hello-world/">搬家</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>发现好久不大更新<br>实属太懒的原因（。<br>可不能这样<em>(:з」∠)</em>， 干脆写篇深浅拷贝的总结好了</p>
+<a id="more"></a>
+<h2 id="关于变量的复制"><a href="#关于变量的复制" class="headerlink" title="关于变量的复制"></a>关于变量的复制</h2><p>都知道，js中有基本数据类型以及引用数据类型，关于他们的复制如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本数据类型</span></span><br><span class="line"><span class="keyword">const</span> first = <span class="string">'first'</span></span><br><span class="line"><span class="keyword">let</span> second = first</span><br><span class="line">second = <span class="string">'second'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(first)   <span class="comment">// first</span></span><br><span class="line"><span class="built_in">console</span>.log(second)  <span class="comment">// second</span></span><br></pre></td></tr></table></figure></p>
+<p>看起来挺符合直觉的， 看一看引用数据类型的复制<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用数据类型</span></span><br><span class="line"><span class="keyword">const</span> objFirst = &#123;</span><br><span class="line">  name: <span class="string">'bibi'</span>,</span><br><span class="line">  age: <span class="number">23</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> objSecond = objFirst</span><br><span class="line">objSecond.age = <span class="number">18</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(objFirst)  <span class="comment">// &#123;name: 'bibi', age: 18&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(objSecond) <span class="comment">// &#123;name: 'bibi', age: 18&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>基础不怎么扎实的同学（说的我好像很扎实一样☹️）可能就会疑惑为啥只是改变的objSecond的age属性，同样的却会作用在objFirst对象上，这不是明明复制了一个新对象了嘛。<br>有点点奇怪噢🤔🤔🤔</p>
+<p>这里就要谈到栈和堆了，也就是所谓的stack和heap<br>是这样的，基本数据类型的存储是存储在栈之中，栈之中的数据大小确定，自动分配内存空间，适合存储简单的数据段，当你进行复制操作的时候，栈会新开辟一块内存，名为key，值为你复制过来的值。<br>引用就有点不一样了，引用数据类型存储在堆之中，动态分配内存，大小不确定也不会自动释放。当你进行引用数据类型复制的时候，注意，在栈中依然会开辟一块内存，名为key，但要注意值是一个指向真实存放于堆内存中的值的一个<strong>地址</strong><br>当你进行复制操作的时候，复制过来的其实为地址，objSecond和objFirst实际上依然是同一个对象。</p>
+<p>说到底两者的复制就是传值和传址的区别，而浅拷贝实际上指的就是如上，两个变量实际上指向一个对象的情况。🙄</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>说一下思路，新建一个空对象，遍历需要复制的对象，遇到基本数据类型直接进行复制，遇到引用数据类型，因为一般引用类型最终存储的还是基本类型，那就递归然后再遍历</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> deepCopy = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> newObj = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;</span><br><span class="line">  <span class="keyword">if</span> (obj &amp;&amp; <span class="keyword">typeof</span> obj === <span class="string">"object"</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Object</span>.hasOwnProperty(key)) &#123; <span class="comment">// for in会遍历所有可枚举属性，包括原型上的</span></span><br><span class="line">        <span class="keyword">if</span> (obj[key] &amp;&amp; <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span>) &#123;</span><br><span class="line">          newObj[key] = deepCopy(obj[key])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          newObj[key] = obj[key]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newObj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="奇淫技巧"><a href="#奇淫技巧" class="headerlink" title="奇淫技巧"></a>奇淫技巧</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj))</span><br></pre></td></tr></table></figure>
+<p>就很简单粗暴了🤔</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/02/21/copy/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/12/24/attachment/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">background-attachment</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2018/">&laquo; Prev</a><a class="page-number" href="/archives/2018/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -248,8 +338,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
