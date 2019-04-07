@@ -5,7 +5,7 @@ date: 2019-02-21
 
 发现好久不大更新
 实属太懒的原因（。
-可不能这样_(:з」∠)_， 干脆写篇深浅拷贝的总结好了
+可不能这样_(:з」∠)_ ， 干脆写篇深浅拷贝的总结好了
 
 <!--more-->
 
@@ -72,3 +72,5 @@ const deepCopy = (obj) => {
 JSON.parse(JSON.stringify(obj))
 ```
 就很简单粗暴了🤔
+
+<font face="黑体" size="2px" color="#a6a6a6">🤔🤔这表情真好玩🤔🤔</font>
