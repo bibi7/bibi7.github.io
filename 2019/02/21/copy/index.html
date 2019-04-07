@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>js中的深浅拷贝 | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠)， 干脆写篇深浅拷贝的总结好了">
+  <meta name="description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠) ， 干脆写篇深浅拷贝的总结好了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js中的深浅拷贝">
 <meta property="og:url" content="http://yoursite.com/2019/02/21/copy/index.html">
 <meta property="og:site_name" content="bibi">
-<meta property="og:description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠)， 干脆写篇深浅拷贝的总结好了">
+<meta property="og:description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠) ， 干脆写篇深浅拷贝的总结好了">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-22T15:52:36.174Z">
+<meta property="og:updated_time" content="2019-04-07T08:23:59.950Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js中的深浅拷贝">
-<meta name="twitter:description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠)， 干脆写篇深浅拷贝的总结好了">
+<meta name="twitter:description" content="发现好久不大更新实属太懒的原因（。可不能这样(:з」∠) ， 干脆写篇深浅拷贝的总结好了">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -176,7 +176,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>发现好久不大更新<br>实属太懒的原因（。<br>可不能这样<em>(:з」∠)</em>， 干脆写篇深浅拷贝的总结好了</p>
+        <p>发现好久不大更新<br>实属太懒的原因（。<br>可不能这样<em>(:з」∠)</em> ， 干脆写篇深浅拷贝的总结好了</p>
 <a id="more"></a>
 <h2 id="关于变量的复制"><a href="#关于变量的复制" class="headerlink" title="关于变量的复制"></a>关于变量的复制</h2><p>都知道，js中有基本数据类型以及引用数据类型，关于他们的复制如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本数据类型</span></span><br><span class="line"><span class="keyword">const</span> first = <span class="string">'first'</span></span><br><span class="line"><span class="keyword">let</span> second = first</span><br><span class="line">second = <span class="string">'second'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(first)   <span class="comment">// first</span></span><br><span class="line"><span class="built_in">console</span>.log(second)  <span class="comment">// second</span></span><br></pre></td></tr></table></figure></p>
 <p>看起来挺符合直觉的， 看一看引用数据类型的复制<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用数据类型</span></span><br><span class="line"><span class="keyword">const</span> objFirst = &#123;</span><br><span class="line">  name: <span class="string">'bibi'</span>,</span><br><span class="line">  age: <span class="number">23</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> objSecond = objFirst</span><br><span class="line">objSecond.age = <span class="number">18</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(objFirst)  <span class="comment">// &#123;name: 'bibi', age: 18&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(objSecond) <span class="comment">// &#123;name: 'bibi', age: 18&#125;</span></span><br></pre></td></tr></table></figure></p>
@@ -187,6 +187,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> deepCopy = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> newObj = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;</span><br><span class="line">  <span class="keyword">if</span> (obj &amp;&amp; <span class="keyword">typeof</span> obj === <span class="string">"object"</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Object</span>.hasOwnProperty(key)) &#123; <span class="comment">// for in会遍历所有可枚举属性，包括原型上的</span></span><br><span class="line">        <span class="keyword">if</span> (obj[key] &amp;&amp; <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span>) &#123;</span><br><span class="line">          newObj[key] = deepCopy(obj[key])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          newObj[key] = obj[key]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newObj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="奇淫技巧"><a href="#奇淫技巧" class="headerlink" title="奇淫技巧"></a>奇淫技巧</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj))</span><br></pre></td></tr></table></figure>
 <p>就很简单粗暴了🤔</p>
+<font face="黑体" size="2px" color="#a6a6a6">🤔🤔这表情真好玩🤔🤔</font>
 
       
 
@@ -279,6 +280,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/04/07/cherry-pick/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          cherry-pick
+        
+      </div>
+    </a>
   
   
     <a href="/2018/12/24/attachment/" id="article-nav-older" class="article-nav-link-wrap">

@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | bibi</title>
+  <title>cherry-pick | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="bibi">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="又是一个月过去了。🤔🤔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cherry-pick">
+<meta property="og:url" content="http://yoursite.com/2019/04/07/cherry-pick/index.html">
 <meta property="og:site_name" content="bibi">
+<meta property="og:description" content="又是一个月过去了。🤔🤔">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/imgs/cherry1.jpg">
+<meta property="og:image" content="http://yoursite.com/imgs/cherry2.jpg">
+<meta property="og:image" content="http://yoursite.com/imgs/cherry3.jpg">
+<meta property="og:updated_time" content="2019-04-07T08:27:52.633Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bibi">
+<meta name="twitter:title" content="cherry-pick">
+<meta name="twitter:description" content="又是一个月过去了。🤔🤔">
+<meta name="twitter:image" content="http://yoursite.com/imgs/cherry1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -152,76 +160,168 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-cherry-pick" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      cherry-pick
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/07/cherry-pick/" class="archive-article-date">
+
+        
+        <a href="/2019/04/07/cherry-pick/" class="archive-article-date">
   	<time datetime="2019-04-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/07/cherry-pick/">cherry-pick</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>又是一个月过去了。<br>🤔🤔</p>
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在日常的开发工作中，大多数公司都是基于git的<code>work flow</code>概念，通常在一个项目中会存在着大量的分支，除了禁止修改的master分支，会包括各种各样的feature分支，dev分支，test分支等等。<br>每开发一次需求，就切出一个分支来进行coding。<br>一般我们都是基于master，<code>git checkout -b</code>切出一个新分支，在此分支之上进行开发以及commit操作。但是工作中有时候真的太过于忙碌，以至于经常忘记事先先检查开发分支，而直接开发后进行错误的commit操作。</p>
+<p>在以前经历过不小心在错误的分支上提交commit之后，当时采取的办法只能把自己每一行的改动复制下来挪到新分支上，同时在旧分支进行<code>git reset HEAD~1 --hard</code>的操作来强行回退commit，但终究这是个很麻烦的方法。</p>
+<p>所以基于这个需要，去了解<code>cherry-pick</code>这个操作。🤔<br>在平常的开发工作中，可能会出现多个开发人员的开发分支需要同一个commit修改的情况，甚至之后要是万一出现了和我一样的失误，也不至于一行行的把代码复制过去。☹️</p>
+<h2 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h2><p><code>cherry-pick</code>，可以译为摘樱桃，意思为我们挑选出我们所需要的commit来单独进行操作，前提条件是你想要check的更改已经commit。<br>具体做法是，切换到你想要的分支b，使用<code>git cherry-pick commit-id</code>，你会发现b分支的顶部已经是你刚才所做的commit</p>
+<p>举个栗子，我在master分支的基础上<code>checkout</code>了一个<code>testA</code>分支，同时在<code>master</code>分支上提交了我的<code>commit</code><br><code>checkout</code>到<code>testA</code>分支，<code>cherry-pick</code>刚才的<code>commit</code>，如下：<br><img src="/imgs/cherry1.jpg" alt="text"><br><img src="/imgs/cherry2.jpg" alt="text"><br><img src="/imgs/cherry3.jpg" alt="text"></p>
+<p>撒花撒花✿✿ヽ(°▽°)ノ✿🤔🤔</p>
+<p>每次的<code>cherry-pick</code>出来的<code>commit</code>其实都是一个新的<code>commit</code>。会拥有不同的commit id<br>如果想要他们保持同一个commit id， 可以使用<code>git cherry-pick -x &lt;commit id&gt;</code></p>
+<p><code>cherry-pick</code>也会存在冲突，需要手动解决冲突后重新commit</p>
+<p>批量cherry-pick：<br>    <code>git cherry-pick &lt;start-commit-id&gt;..&lt;end-commit-id&gt;</code><br>要注意此种方式不会包括第一个start，如果需要包含的话需要多加一个^符号：<br>    <code>git cherry-pick &lt;start-commit-id&gt;^..&lt;end-commit-id&gt;</code><br>如果想cherry-pick之后重新编辑commit信息， 可使用<code>git cherry-pick -e &lt;commit id&gt;</code></p>
+<p>所有的commitid都可以使用前六位表示</p>
+<font face="黑体" size="2px" color="#a6a6a6">我好像太懒了点最近</font>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/07/cherry-pick/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/21/copy/" class="archive-article-date">
-  	<time datetime="2019-02-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/21/copy/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js中的深浅拷贝</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/21/copy/">js中的深浅拷贝</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -244,8 +344,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
