@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/4 | bibi</title>
+  <title>说说最近开发中遇到的几点东西🤔🤔🤔 | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="bibi">
-<meta property="og:url" content="http://yoursite.com/archives/2019/04/index.html">
+  <meta name="description" content="💃 💃 💃 💃">
+<meta property="og:type" content="article">
+<meta property="og:title" content="说说最近开发中遇到的几点东西🤔🤔🤔">
+<meta property="og:url" content="http://yoursite.com/2019/04/21/react16/index.html">
 <meta property="og:site_name" content="bibi">
+<meta property="og:description" content="💃 💃 💃 💃">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-21T00:10:24.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bibi">
+<meta name="twitter:title" content="说说最近开发中遇到的几点东西🤔🤔🤔">
+<meta name="twitter:description" content="💃 💃 💃 💃">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -152,76 +156,182 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-react16" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      说说最近开发中遇到的几点东西🤔🤔🤔
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/21/react16/" class="archive-article-date">
+
+        
+        <a href="/2019/04/21/react16/" class="archive-article-date">
   	<time datetime="2019-04-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/21/react16/">说说最近开发中遇到的几点东西🤔🤔🤔</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>💃 💃 💃 💃<br><a id="more"></a></p>
+<p>算是记录一下踩坑吧</p>
+<h2 id="react从15升16之后带来的一些问题"><a href="#react从15升16之后带来的一些问题" class="headerlink" title="react从15升16之后带来的一些问题"></a>react从15升16之后带来的一些问题</h2><p>因为我司前端架构组其实把react之类的一些公共依赖做成了集中式，直接引入集中式文件就行，所以升级的成本对于各条业务线来说其实是很低的，所做的工作也就是在vm文件中替换一下集中式文件的路径，其他的升级成本都被抹平了。</p>
+<p>基于这个情况下，升级一下16不是洒洒水吗🤔🤔？<br>升！<br>升他妈的！<br>我要用fiber！</p>
+<p>建需求！<br>改路径！<br>提测！</p>
+<p>咦怎么测试就提bug了呢🤔🤔🤔？</p>
+<p>是这样的，我司基于react的基础上再次封装了一套自用的框架，内置一些http的相关处理，在路由切换时<code>constructor</code>阶段会注册一些相关的监听器，同时在<code>componentWillUnMount</code>时卸载所有监听器。<br>场景下，在进行页面切换的时候，其实也就是两个组件页面，当进入A页面时，进行接口请求，得到数据渲染页面。当点击跳转b页面，点击返回的时候，这个时候的期望应该是：</p>
+<ol>
+<li>回A页面</li>
+<li>A接口请求数据</li>
+<li>得到数据渲染页面</li>
+</ol>
+<p>而实际上是：</p>
+<ol>
+<li>回页面</li>
+<li>接口请求</li>
+<li>没了</li>
+</ol>
+<p>接口没数据的情况下我肯定不去渲染页面， 所以默认的我们会展示一个骨架屏，导致直接死在这一步。<br>和同事调研了许久才明白，15其实是基于同步去渲染的，一个组件卸载完毕之后，才会去执行新组件的<code>constructor</code>。<br> <code>componentWillUnMount</code> =&gt; <code>constructor</code> =&gt; <code>componentWillMount</code></p>
+<p>16由于fiber的原因，采用的是<code>async rendering</code>, 以至于在旧生命周期暂时还能用的时候会变成：<br> <code>constructor（A）</code> =&gt; <code>componentWillUnMount（B）</code> =&gt; <code>componentWillMount（A）</code></p>
+<p> 所以B =&gt; A的时候，在A的<code>constructor</code>时，绑定了相关http监听，目的是为了触发相关的回调，当绑定成功以后，走到了B的<code>componentWillUnMount</code>，这时卸载了页面上所有的http监听，导致当A页面中主接口请求完之后，本身绑定的相关回调函数被清除，展示出来的情况就为，明明接口请求成功但是确不触发相关回调的表现形式。</p>
+<p> 详见：<br> <a href="https://codepen.io/bibi7/pen/axKwNe?editors=1111" target="_blank" rel="noopener">codeopen</a></p>
+<h2 id="render之后获取不到ref"><a href="#render之后获取不到ref" class="headerlink" title="render之后获取不到ref"></a>render之后获取不到ref</h2><p>这个包括下个其实都是小tips</p>
+<p>关于render之后，在<code>componentDidMount</code>的时候获取不到ref，主要原因还是在render时候有一个主接口是否返回数据的判断，在回调中会设置一下isDataReady，false的情况下return null<br>在最初的render中其实接口还没返回数据的时候return null后，<code>componentDidMount</code>当然拿不到了，因为根本还没有dom嘛<em>(:з」∠)</em></p>
+<h2 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild"></a>appendChild</h2><p>有个需要不停滚动的需求，在数据大于一条时候无限滚动，同时需要点动效，当时想到的肯定是，append第一个子元素到最下方，同时第一个子元素新增一下class，内置animation，监听animationEnd事件后移除自己即可。不过当真正做起来的时候发现，append了元素后，和设想的表现形式不大一致？🤔🤔<br>除了append到最后以外，第一个子元素也会直接发生变动，在我添加class之前就变了。<br>奇怪哦？🤔🤔🤔🤔</p>
+<p>调研了一下，<code>appendChild</code>方法，当append的元素不在dom树之中时，可以正常append到末尾。<br>当append的元素本身是一个存在于dom树之中的元素时，<code>appendChid</code>表现的形式为替换他们的位置，具体解决方式可以先用<code>cloneNode</code>方法处理一下。</p>
+<p>撒花✿✿ヽ(°▽°)ノ✿ 💃 💃 💃 💃 💃 💃</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/21/react16/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/07/cherry-pick/" class="archive-article-date">
-  	<time datetime="2019-04-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/07/cherry-pick/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cherry-pick</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/07/cherry-pick/">cherry-pick</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -244,8 +354,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
