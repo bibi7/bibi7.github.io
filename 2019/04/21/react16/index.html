@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="bibi">
 <meta property="og:description" content="💃 💃 💃 💃">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-21T00:10:24.252Z">
+<meta property="og:updated_time" content="2019-05-12T15:29:57.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="说说最近开发中遇到的几点东西🤔🤔🤔">
 <meta name="twitter:description" content="💃 💃 💃 💃">
@@ -203,6 +203,7 @@
 <h2 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild"></a>appendChild</h2><p>有个需要不停滚动的需求，在数据大于一条时候无限滚动，同时需要点动效，当时想到的肯定是，append第一个子元素到最下方，同时第一个子元素新增一下class，内置animation，监听animationEnd事件后移除自己即可。不过当真正做起来的时候发现，append了元素后，和设想的表现形式不大一致？🤔🤔<br>除了append到最后以外，第一个子元素也会直接发生变动，在我添加class之前就变了。<br>奇怪哦？🤔🤔🤔🤔</p>
 <p>调研了一下，<code>appendChild</code>方法，当append的元素不在dom树之中时，可以正常append到末尾。<br>当append的元素本身是一个存在于dom树之中的元素时，<code>appendChid</code>表现的形式为替换他们的位置，具体解决方式可以先用<code>cloneNode</code>方法处理一下。</p>
 <p>撒花✿✿ヽ(°▽°)ノ✿ 💃 💃 💃 💃 💃 💃</p>
+<h4 id="2019-05-12-update"><a href="#2019-05-12-update" class="headerlink" title="2019/05/12 update"></a>2019/05/12 update</h4><p>appendChild无法复制dom上的事件</p>
 
       
 
