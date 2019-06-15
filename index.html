@@ -154,6 +154,75 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-service" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/15/service/">手把手阿里云买个服务器并且搭建环境</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/15/service/" class="archive-article-date">
+  	<time datetime="2019-06-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 💃 💃算是个小总结</p>
+<h3 id="上阿里云买个服务器这个不就用我来说了吧"><a href="#上阿里云买个服务器这个不就用我来说了吧" class="headerlink" title="上阿里云买个服务器这个不就用我来说了吧"></a>上阿里云买个服务器这个不就用我来说了吧</h3><p> 小项目的话买个1核1g的linux就行，毕竟也没打算玩什么大家伙，这边买完之后进个人中心会发现我们的服务器已经正在跑了</p>
+<p> <img src="../imgs/service-3.jpg" alt="f"></p>
+<p> 点击远程连接，会出现一个新的tab，带着一个黑色的控制台，我们可以在这里面进行一些服务器的操作。<br> 但是每一次都要开网页才能操作服务器怪麻烦，可以直接用本地的bash直连服务器进行相关操作。<br> 可以直接使用ssh root@ip直接从bash连上服务器，输入密码就行。如果觉得每次输密码也麻烦的话可一步到位：</p>
+<p> <code>cat ~/.ssh/id_rsa.pub |ssh root@ip &#39;mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys&#39;</code><br> 看到这篇文章的人我默认你已经有了自己的公钥和私钥。🤔🤔</p>
+<h3 id="上服务器下最新的node包"><a href="#上服务器下最新的node包" class="headerlink" title="上服务器下最新的node包"></a>上服务器下最新的node包</h3><p> <code>wget https://npm.taobao.org/mirrors/node/v10.16.0/node-v10.16.0-linux-x64.tar.xz</code><br> 是个xz后缀的包，需要解压两次：<br> <code>xz -d node-v8.9.3-linux-x64.tar.xz</code><br> <code>tar -xvf node-v8.9.3-linux-x64.tar</code></p>
+<p> 之后回到根目录建立软链<br> <code>ln -s /node/node-v10.16.0-linux-x64/bin/node /usr/bin/node</code><br> <code>ln -s /node/node-v10.16.0-linux-x64/bin/npm /usr/bin/npm</code><br> 弄完之后分别输出一下版本<br> <code>node -v    npm -v</code><br> 期望如下：<br> <img src="../imgs/service-2.png" alt="f"><br> 💃 node环境搭建ok</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/15/service/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-react16" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -720,80 +789,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/23/1080/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-qingyun" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/14/qingyun/">金光布袋戏28集有感</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/14/qingyun/" class="archive-article-date">
-  	<time datetime="2018-06-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>布袋戏三个礼拜没追更新了，攒了三集刚好拿起来追。<br>可是28集真的太让我难受了。</p>
-<p>开头八分钟步天踪的牺牲，为了保空冥云渊，苗疆从此少了一位真正的大祭司，在扔杖的那一刻，步天踪早就做好了准备：</p>
-<blockquote>
-<font face="黑体" size="2px" color="#a6a6a6">“权杖，劳你交回”</font>
-</blockquote>
-<p>忆无心在祭祀墓前流泪捡起了权杖，这一捡，是捡起了权杖，也是捡起了大祭司之职。</p>
-<p>新旧大祭司在墓碑前的交替与传承。</p>
-<p>青云因大祭司之死而得到死罪赦免，得到父亲身死的消息瞬间崩溃，但真的一切都太迟了。<br>其母早已因为殷若微的药而成瘾，简直已经跟吸毒没有任何区别，毒瘾发作起来连祭祀之死的消息都不能动摇半分，我本以为青云会继续拿药喂。</p>
-<p>可是我万分没想到青云会自己勒死自己的早已不是亲生母亲的亲生母亲。</p>
-<p>青云绝望的哭声，是否会后悔当初偷了向天抢时而换来的亡命水。<br>一切都太迟了，令人窒息的心境成长，可是一切代价都太大了。</p>
-<p>很棒的一集。</p>
-<p><br></p>
-<font face="黑体" size="2px" color="#a6a6a6">金光的bgm一如既往</font>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/14/qingyun/">展开全文 >></a>
         </p>
       
 
