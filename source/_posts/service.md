@@ -22,8 +22,8 @@ date: 2019-06-15
 
  `wget https://npm.taobao.org/mirrors/node/v10.16.0/node-v10.16.0-linux-x64.tar.xz`
  是个xz后缀的包，需要解压两次：
- `xz -d node-v8.9.3-linux-x64.tar.xz`
- `tar -xvf node-v8.9.3-linux-x64.tar`
+ `xz -d node-v10.16.0-linux-x64.tar.xz`
+ `tar -xvf node-v10.16.0-linux-x64.tar`
 
  之后回到根目录建立软链
  `ln -s /node/node-v10.16.0-linux-x64/bin/node /usr/bin/node`
