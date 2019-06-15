@@ -17,7 +17,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/06/15/imgs/service-3.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/06/15/imgs/service-2.png">
-<meta property="og:updated_time" content="2019-06-15T02:55:52.658Z">
+<meta property="og:updated_time" content="2019-06-15T03:00:45.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手把手阿里云买个服务器并且搭建环境">
 <meta name="twitter:description" content="💃 💃算是个小总结 上阿里云买个服务器这个不就用我来说了吧 小项目的话买个1核1g的linux就行，毕竟也没打算玩什么大家伙，这边买完之后进个人中心会发现我们的服务器已经正在跑了    点击远程连接，会出现一个新的tab，带着一个黑色的控制台，我们可以在这里面进行一些服务器的操作。 但是每一次都要开网页才能操作服务器怪麻烦，可以直接用本地的bash直连服务器进行相关操作。 可以直接使用ssh">
@@ -184,7 +184,7 @@
 <p> <img src="../imgs/service-3.jpg" alt="f"></p>
 <p> 点击远程连接，会出现一个新的tab，带着一个黑色的控制台，我们可以在这里面进行一些服务器的操作。<br> 但是每一次都要开网页才能操作服务器怪麻烦，可以直接用本地的bash直连服务器进行相关操作。<br> 可以直接使用ssh root@ip直接从bash连上服务器，输入密码就行。如果觉得每次输密码也麻烦的话可一步到位：</p>
 <p> <code>cat ~/.ssh/id_rsa.pub |ssh root@ip &#39;mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys&#39;</code><br> 看到这篇文章的人我默认你已经有了自己的公钥和私钥。🤔🤔</p>
-<h3 id="上服务器下最新的node包"><a href="#上服务器下最新的node包" class="headerlink" title="上服务器下最新的node包"></a>上服务器下最新的node包</h3><p> <code>wget https://npm.taobao.org/mirrors/node/v10.16.0/node-v10.16.0-linux-x64.tar.xz</code><br> 是个xz后缀的包，需要解压两次：<br> <code>xz -d node-v8.9.3-linux-x64.tar.xz</code><br> <code>tar -xvf node-v8.9.3-linux-x64.tar</code></p>
+<h3 id="上服务器下最新的node包"><a href="#上服务器下最新的node包" class="headerlink" title="上服务器下最新的node包"></a>上服务器下最新的node包</h3><p> <code>wget https://npm.taobao.org/mirrors/node/v10.16.0/node-v10.16.0-linux-x64.tar.xz</code><br> 是个xz后缀的包，需要解压两次：<br> <code>xz -d node-v10.16.0-linux-x64.tar.xz</code><br> <code>tar -xvf node-v10.16.0-linux-x64.tar</code></p>
 <p> 之后回到根目录建立软链<br> <code>ln -s /node/node-v10.16.0-linux-x64/bin/node /usr/bin/node</code><br> <code>ln -s /node/node-v10.16.0-linux-x64/bin/npm /usr/bin/npm</code><br> 弄完之后分别输出一下版本<br> <code>node -v    npm -v</code><br> 期望如下：<br> <img src="../imgs/service-2.png" alt="f"><br> 💃 node环境搭建ok</p>
 
       
