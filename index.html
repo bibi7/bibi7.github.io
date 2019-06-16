@@ -181,6 +181,22 @@
 <p> <code>cat ~/.ssh/id_rsa.pub |ssh root@ip &#39;mkdir -p .ssh &amp;&amp; cat &gt;&gt; .ssh/authorized_keys&#39;</code><br> 看到这篇文章的人我默认你已经有了自己的公钥和私钥。🤔🤔</p>
 <h3 id="上服务器下最新的node包"><a href="#上服务器下最新的node包" class="headerlink" title="上服务器下最新的node包"></a>上服务器下最新的node包</h3><p> <code>wget https://npm.taobao.org/mirrors/node/v10.16.0/node-v10.16.0-linux-x64.tar.xz</code><br> 是个xz后缀的包，需要解压两次：<br> <code>xz -d node-v10.16.0-linux-x64.tar.xz</code><br> <code>tar -xvf node-v10.16.0-linux-x64.tar</code></p>
 <p> 之后回到根目录建立软链<br> <code>ln -s /node/node-v10.16.0-linux-x64/bin/node /usr/bin/node</code><br> <code>ln -s /node/node-v10.16.0-linux-x64/bin/npm /usr/bin/npm</code><br> 弄完之后分别输出一下版本<br> <code>node -v    npm -v</code><br> 期望如下：<br> <img src="../imgs/service-2.png" alt="f"><br> 💃 node环境搭建ok</p>
+<h3 id="上传项目"><a href="#上传项目" class="headerlink" title="上传项目"></a>上传项目</h3><p>把项目打成一个zip包之后发送到服务器<br><code>scp xxx root@ip:/fileFolder</code></p>
+<p>开始守护进程<br><code>npm install pm2 -g</code><br><code>pm2 start xxx --watch</code><br>同时可以<code>pm2 list</code>列一下目前正在守护的进程<br><img src="../imgs/service-4.jpg" alt="f"></p>
+<p>还需配置nginx：</p>
+<ol>
+<li>新服务器我们先更新一下源，<code>apt-get update</code></li>
+<li>安装PCRE库，zlib库，ssl <code>sudo apt-get install libpcre3 libpcre3-dev libpcrecpp0v5 libssl-dev zlib1g-dev</code></li>
+<li>cd到你想要的目录</li>
+<li>选一个nginx版本 <code>wget http://nginx.org/download/nginx-1.xx.x.tar.gz</code></li>
+<li>解压 <code>tar -zxvf nginx-1.13.1.tar.gz</code></li>
+<li>cd进目录， <code>./configure</code></li>
+<li><code>make &amp;&amp; make install</code></li>
+<li>启动ngxin</li>
+</ol>
+<p>一般这个时候直接访问服务器ip，看到nginx默认页面就ok<br><img src="../imgs/service-5.jpg" alt="f"><br>可以<code>nginx -t</code>查看一下配置文件的位置， 不过一般都是在<code>/usr/local/nginx/conf</code>下面，找到<code>nginx.conf</code>，改一下配置就行，具体配置规则百度即可</p>
+<p>如果前端是个vue项目的话，<code>npm run build</code>之后把dist下的static和index直接丢到服务器上，nginx配置一下入口的转发，默认监听80<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  root /vue-cloud/dist;</span><br><span class="line">  try_files $uri $uri /index.html last</span><br><span class="line">  index index.html index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果想监听其他的端口另行配置。</p>
 
       
 
