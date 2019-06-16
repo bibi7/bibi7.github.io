@@ -33,3 +33,37 @@ date: 2019-06-15
  期望如下：
  ![f](../imgs/service-2.png)
  💃 node环境搭建ok
+
+### 上传项目
+把项目打成一个zip包之后发送到服务器
+`scp xxx root@ip:/fileFolder`
+
+开始守护进程
+`npm install pm2 -g`
+`pm2 start xxx --watch`
+同时可以`pm2 list`列一下目前正在守护的进程
+![f](../imgs/service-4.jpg)
+
+还需配置nginx：
+1. 新服务器我们先更新一下源，`apt-get update`
+2. 安装PCRE库，zlib库，ssl `sudo apt-get install libpcre3 libpcre3-dev libpcrecpp0v5 libssl-dev zlib1g-dev`
+3. cd到你想要的目录
+4. 选一个nginx版本 `wget http://nginx.org/download/nginx-1.xx.x.tar.gz`
+5. 解压 `tar -zxvf nginx-1.13.1.tar.gz`
+6. cd进目录， `./configure`
+7. `make && make install`
+8. 启动ngxin
+
+一般这个时候直接访问服务器ip，看到nginx默认页面就ok
+![f](../imgs/service-5.jpg)
+可以`nginx -t`查看一下配置文件的位置， 不过一般都是在`/usr/local/nginx/conf`下面，找到`nginx.conf`，改一下配置就行，具体配置规则百度即可
+
+如果前端是个vue项目的话，`npm run build`之后把dist下的static和index直接丢到服务器上，nginx配置一下入口的转发，默认监听80
+```
+location / {
+  root /vue-cloud/dist;
+  try_files $uri $uri /index.html last
+  index index.html index.html;
+}
+```
+如果想监听其他的端口另行配置。
