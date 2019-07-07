@@ -154,6 +154,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-transition" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/07/transition/">隐式转换</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/07/transition/" class="archive-article-date">
+  	<time datetime="2019-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="js中的隐式转换"><a href="#js中的隐式转换" class="headerlink" title="js中的隐式转换"></a>js中的隐式转换</h2><p>关于js在运算中的隐式转换其实还挺坑的，在一些运算符中或者是非全等的条件下很容易发生意想不到的隐式转换。<br>其中js机制在隐式转换的时候又会涉及到三种抽象操作：</p>
+<ol>
+<li>通过<code>ToPrimitive()</code>转换</li>
+<li>通过<code>ToNumber()</code>转换</li>
+<li>通过<code>ToString()</code>转换</li>
+</ol>
+<h3 id="ToPrimitive-input-PreferredType"><a href="#ToPrimitive-input-PreferredType" class="headerlink" title="ToPrimitive(input [, PreferredType])"></a>ToPrimitive(input [, PreferredType])</h3><p>其中，<code>ToPrimitive</code> 该抽象操作接受一个参数input以及可选参数PreferredType，这个参数可以是<code>Number</code>或者<code>String</code>。主要目的是要把input转化成原始数据类型。</p>
+<p>当被标记为<code>Number</code>的时候，调用顺序为： valueOf &gt;&gt;&gt; toString，即 valueOf 返回的不是基本数据类型，才会继续调用 toString，如果 toString 返回的还不是基本数据类型，那么抛出错误</p>
+<p>当被标记为<code>String</code>的时候，调用顺序为： toString &gt;&gt;&gt; valueOf，即 toString 返回的不是基本数据类型，才会继续调用 valueOf，如果 valueOf 返回的还不是基本数据类型，那么抛出错误</p>
+<p>如果没有参数，则默认为以下规则：</p>
+<ol>
+<li>如果input类型为Date类型，则PreferredType会被设置为<code>String</code></li>
+<li>其他情况会被设置为<code>Number</code></li>
+</ol>
+<p>总结下，也就是除了Date对象以外,其他的PreferredType都是Number</p>
+<p>valueOf的转换中，<code>String</code>、<code>Number</code>、<code>Boolean</code>都会被变成相应的原始值，另外<code>Date</code>类型会返回日期到现在相对应的毫秒数，初次之外都会返回本身</p>
+<p>toString的转换中，<code>Number</code>、<code>Boolean</code>、<code>String</code>、<code>Array</code>、<code>Date</code>、<code>RegExp</code>、<code>Function</code>都重写了自己的toString，都会返回相应的字符串形式，其他的toString访问的其实是Object.prototype.toString。同时这个方法也能用来判断实例的类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const array = new Array();</span><br><span class="line">Object.prototype.toString.call(array); // &apos;[object Array]&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="eg"><a href="#eg" class="headerlink" title="eg:"></a>eg:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(&#123;&#125; + &#123;&#125;)</span><br><span class="line">对象无法直接进行相加，所以进行隐式转换</span><br><span class="line">1. 进行ToPrimitive转换，input就是&#123;&#125;, 这个时候type是Number</span><br><span class="line">2. 先进性valueOf方法，(&#123;&#125;).valueOf()返回的还是&#123;&#125;本身，并不是一个原始值，所以继续进行下一步</span><br><span class="line">3. 进行toString方法，(&#123;&#125;).toString()返回的是&apos;[object object]&apos;字符串，是原始值，返回</span><br><span class="line">4. 最终就是&apos;[object object]&apos; + &apos;[object object]&apos; = &apos;[object object][object object]&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="关于-的隐式转换"><a href="#关于-的隐式转换" class="headerlink" title="关于==的隐式转换"></a>关于==的隐式转换</h3><p>es5的隐式转换文档如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">比较运算 x==y, 其中 x 和 y 是值，返回 true 或者 false。这样的比较按如下方式进行：</span><br><span class="line">1. 若 x 为 null 且 y 为 undefined， 返回 true。</span><br><span class="line">2. 若 x 为 undefined 且 y 为 null， 返回 true。</span><br><span class="line">3. 若 Type(x) 为 Number 且 Type(y) 为 String，返回比较 x == ToNumber(y) 的结果。</span><br><span class="line">4. 若 Type(x) 为 String 且 Type(y) 为 Number，返回比较 ToNumber(x) == y 的结果。</span><br><span class="line">5. 若 Type(x) 为 Boolean， 返回比较 ToNumber(x) == y 的结果。</span><br><span class="line">6. 若 Type(y) 为 Boolean， 返回比较 x == ToNumber(y) 的结果。</span><br><span class="line">7. 若 Type(x) 为 String 或 Number，且 Type(y) 为 Object，返回比较 x == ToPrimitive(y) 的结果。</span><br><span class="line">8. 若 Type(x) 为 Object 且 Type(y) 为 String 或 Number， 返回比较 ToPrimitive(x) == y 的结果。</span><br><span class="line">9. 返回 false。</span><br></pre></td></tr></table></figure></p>
+<p>如上可以总结出一些规律：</p>
+<ol>
+<li>当时number和string类型互相比较的时候，先把string转换成number</li>
+<li>当有布尔值的时候，布尔值转化为number</li>
+<li>当有object类型的时候，调用ToPrimitive把object转换成原始值</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const a = &#123;</span><br><span class="line">  i: 1,</span><br><span class="line">  toString: function () &#123;</span><br><span class="line">    return a.i++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">if (a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) &#123;</span><br><span class="line">  console.log(&apos;hello world!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a == 1 会先用ToPrimitive隐式转换a，在经过valueOf之后返回本身，继续调用toString。</span><br><span class="line">这个时候由于toString被重写的原因，返回a.i++, 所以2 == 2 为true，后续同理</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/07/transition/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-service" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -737,74 +825,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/30/first-PR/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-1080" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/23/1080/">最近的日常</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/23/1080/" class="archive-article-date">
-  	<time datetime="2018-07-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上周发生了一件大事<br>我换显卡啦！！！</p>
-<p>咦为什么逛一逛京东鬼使神差就下了单？_(:з」∠)_<br>这可能就是冥冥中自有定数吧⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄</p>
-<p>服役老将780终于可以退休了（小声bb</p>
-<p><img src="../imgs/f.jpg" alt="f"></p>
-<p><img src="../imgs/o.jpg" alt="o"></p>
-<font face="黑体" size="2px" color="#a6a6a6">我大老婆真好看！</font>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/23/1080/">展开全文 >></a>
         </p>
       
 
