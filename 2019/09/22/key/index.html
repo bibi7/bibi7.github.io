@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>requestAnimationFrame | bibi</title>
+  <title>key in react | bibi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="去年在用vue写玩具的时候遇到了toast相关需求，链接自取，当时也没怎么考虑直接做了个组件的形式。  主要的卡点在于多次触发animation，清空上一次未完成的animation。虽然当时觉得实在太蠢后期优化，但是由于是在太懒的缘故，这篇hape代码现在还挂在blog上。。。🌚🌚都说自己的代码只有自己能看得懂，但是当我好几个月后再回来瞅一下还是觉得：这也太难懂了。。🤔相对于一个toas">
+  <meta name="description" content="日常开发中循环遍历真的是太正常不过的需求了，每个面向框架api开发者不免的都会写过类似的东西：1234567891011121314151617181920this.state = &amp;#123;  info: [1, 2, 3, 4, 5],&amp;#125;;render() &amp;#123;  const &amp;#123;    info  &amp;#125; = this.state;  return(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="requestAnimationFrame">
-<meta property="og:url" content="http://yoursite.com/2019/08/11/requestAnimation/index.html">
+<meta property="og:title" content="key in react">
+<meta property="og:url" content="http://yoursite.com/2019/09/22/key/index.html">
 <meta property="og:site_name" content="bibi">
-<meta property="og:description" content="去年在用vue写玩具的时候遇到了toast相关需求，链接自取，当时也没怎么考虑直接做了个组件的形式。  主要的卡点在于多次触发animation，清空上一次未完成的animation。虽然当时觉得实在太蠢后期优化，但是由于是在太懒的缘故，这篇hape代码现在还挂在blog上。。。🌚🌚都说自己的代码只有自己能看得懂，但是当我好几个月后再回来瞅一下还是觉得：这也太难懂了。。🤔相对于一个toas">
+<meta property="og:description" content="日常开发中循环遍历真的是太正常不过的需求了，每个面向框架api开发者不免的都会写过类似的东西：1234567891011121314151617181920this.state = &amp;#123;  info: [1, 2, 3, 4, 5],&amp;#125;;render() &amp;#123;  const &amp;#123;    info  &amp;#125; = this.state;  return(">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-11T09:15:33.695Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/38184077/65155672-46bcba80-da60-11e9-89dd-4f924714af1b.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/38184077/65155691-4e7c5f00-da60-11e9-8ba4-ca52297537d8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/38184077/65155702-550ad680-da60-11e9-81f7-6c798f906c02.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/38184077/65155714-589e5d80-da60-11e9-8c4f-254883a74eb4.png">
+<meta property="og:updated_time" content="2019-09-22T07:40:19.925Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="requestAnimationFrame">
-<meta name="twitter:description" content="去年在用vue写玩具的时候遇到了toast相关需求，链接自取，当时也没怎么考虑直接做了个组件的形式。  主要的卡点在于多次触发animation，清空上一次未完成的animation。虽然当时觉得实在太蠢后期优化，但是由于是在太懒的缘故，这篇hape代码现在还挂在blog上。。。🌚🌚都说自己的代码只有自己能看得懂，但是当我好几个月后再回来瞅一下还是觉得：这也太难懂了。。🤔相对于一个toas">
+<meta name="twitter:title" content="key in react">
+<meta name="twitter:description" content="日常开发中循环遍历真的是太正常不过的需求了，每个面向框架api开发者不免的都会写过类似的东西：1234567891011121314151617181920this.state = &amp;#123;  info: [1, 2, 3, 4, 5],&amp;#125;;render() &amp;#123;  const &amp;#123;    info  &amp;#125; = this.state;  return(">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/38184077/65155672-46bcba80-da60-11e9-89dd-4f924714af1b.png">
   
     <link rel="alternative" href="/atom.xml" title="bibi" type="application/atom+xml">
   
@@ -156,64 +161,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-requestAnimation" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-key" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      requestAnimationFrame
+      key in react
     </h1>
   
 
         
-        <a href="/2019/08/11/requestAnimation/" class="archive-article-date">
-  	<time datetime="2019-08-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
+        <a href="/2019/09/22/key/" class="archive-article-date">
+  	<time datetime="2019-09-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>去年在用vue写玩具的时候遇到了toast相关需求，<a href="https://bibi7.github.io/2018/12/02/restartAnimation/" target="_blank" rel="noopener">链接自取</a>，当时也没怎么考虑直接做了个组件的形式。</p>
-</blockquote>
-<p>主要的卡点在于多次触发animation，清空上一次未完成的animation。<br>虽然当时觉得实在太蠢后期优化，但是由于是在太懒的缘故，这篇hape代码现在还挂在blog上。。。🌚🌚<br>都说自己的代码只有自己能看得懂，但是当我好几个月后再回来瞅一下还是觉得：<br>这也太难懂了。。🤔相对于一个toast真的没必要这么绕🐴</p>
-<p>算了不拖延了，赶紧搞个toast2.0🌝</p>
-<h3 id="toast2-0"><a href="#toast2-0" class="headerlink" title="toast2.0"></a>toast2.0</h3><p>这东西其实不应该做成类似组件的方式，最好还是做成工具类相关（再次对不起我第一次真的没有细想很多），整个成一个utils是坠好的！</p>
-<p>期望：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  toast</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'xxx/utils'</span></span><br><span class="line"></span><br><span class="line">toast(<span class="string">'some info'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>开工了开工了！比如有以下一个toast的div：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"toast"</span> <span class="attr">class</span>=<span class="string">"toast"</span> @<span class="attr">animationend</span>=<span class="string">"toastEnd"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>animation事件结束后隐藏自己<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">toastEnd() &#123;</span><br><span class="line">  <span class="keyword">let</span> toast = <span class="built_in">document</span>.querySelector(<span class="string">'#toast'</span>)</span><br><span class="line">  toast.classList.remove(<span class="string">'show'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对外抛出toast工具函数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">toast</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> toast = <span class="built_in">document</span>.querySelector(<span class="string">'#toast'</span>)</span><br><span class="line">  toast.innerHTML = msg;</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">"#toast"</span>).className = <span class="string">"toast"</span>;</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">"#toast"</span>).className = <span class="string">"toast show"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>toast函数中本来的设想就是，取消show的激活状态，这样display重新为none了，然后再次添加show的class，置于show中的animation属性就会再次出发，但是实测不太行。。。<br>查了一圈，发现都是基于setTimeout来实现，怎么说呢，有点浮于表面的解决方法。<br>看的比较多的几种：</p>
+        <p>日常开发中循环遍历真的是太正常不过的需求了，每个面向框架api开发者不免的都会写过类似的东西：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.state = &#123;</span><br><span class="line">  info: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">render() &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    info</span><br><span class="line">  &#125; = <span class="keyword">this</span>.state;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span>(</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123;info.map(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;span&gt;&#123;item&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">          &lt;input type="text"/</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &#125;)&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>比如你写了这么一个东西，所渲染的东西是：</p>
 <ol>
-<li>重载html元素</li>
-<li>切换css样式</li>
-<li>写一个一模一样的动画（这不就是那个hape组件的做法吗</li>
-<li><code>webkitAnimationPlayState</code>，讲真不是很了解</li>
+<li>根据数组中的元素数量，渲染相对应数量的div</li>
+<li>每一个div后面都跟了一个input，用来和各自的div相对应，可以录入一些信息啥的。</li>
 </ol>
-<p>继续找一下有没有别的实现？🤔🤔</p>
-<p>找了一圈，终于找到了看起来能从根源上解决的api：<code>window.requestAnimationFrame</code></p>
-<p>我们来瞅瞅MDN的解释：</p>
+<p>由于你实在没力气去搞一个好看的demo，于是这个demo目前长这样：<br><img src="https://user-images.githubusercontent.com/38184077/65155672-46bcba80-da60-11e9-89dd-4f924714af1b.png" alt="image"></p>
+<p>现在你开开心心地录入了前四条信息，这个demo相应的更新了：<br><img src="https://user-images.githubusercontent.com/38184077/65155691-4e7c5f00-da60-11e9-8ba4-ca52297537d8.png" alt="image"></p>
+<p>看起来还可以？</p>
+<p>好，接着，我们写一个onclick，产品提出的场景是，这个模块可以插入一些最新的信息在顶部区域，类似于压栈的方式。于是你吭哧吭哧的写了如下东西：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">addInfo(item) &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    info</span><br><span class="line">  &#125; = <span class="keyword">this</span>.state</span><br><span class="line">  info.unshift(item)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    info: info</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>大功告成！于是你迫不及待的打算开始自测了，依旧，你录入了四条信息，这个时候打算从顶部插入一条信息进去，你恰了根烟，自信满满的点击了button。</p>
+<p>结果是这样的：<br><img src="https://user-images.githubusercontent.com/38184077/65155702-550ad680-da60-11e9-81f7-6c798f906c02.png" alt="image"></p>
+<p>好像有哪里不对？<em>(:з」∠)</em><br>找了半天资料，发现了在遍历的时候并没有传入key，于是你稍微改一下代码，在遍历的过程中加入<code>key</code>：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div key=&#123;<span class="string">`<span class="subst">$&#123;item&#125;</span>-key`</span>&#125;&gt;</span><br><span class="line">  &lt;span&gt;&#123;item&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">  &lt;input type="text"/</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这个时候再试一下，咦？好像好了：<br><img src="https://user-images.githubusercontent.com/38184077/65155714-589e5d80-da60-11e9-8c4f-254883a74eb4.png" alt="image"></p>
+<p>于是你开心发出了拍肚皮的声音。</p>
+<p>讲真，以上真的是一个再简单不过以及日常也会碰到的开发场景了。所以回到正文：</p>
 <blockquote>
-<p>window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行</p>
+<p><strong>他妈的为什么不加key就有bug？</strong></p>
 </blockquote>
-<p>看起来okk，就是他了！<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">toast</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> toast = <span class="built_in">document</span>.querySelector(<span class="string">'#toast'</span>)</span><br><span class="line">  toast.innerHTML = msg;</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">"#toast"</span>).className = <span class="string">"toast"</span>;</span><br><span class="line">  <span class="built_in">window</span>.requestAnimationFrame(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"#toast"</span>).className = <span class="string">"toast show"</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>来说一下主要涉及到的步骤：</p>
+<h2 id="why-we-need-keyyyyyyyys-in-code-traversing"><a href="#why-we-need-keyyyyyyyys-in-code-traversing" class="headerlink" title="why we need keyyyyyyyys in code traversing"></a>why we need keyyyyyyyys in code traversing</h2><p>看一下react文档中的描述：</p>
+<blockquote>
+<p>Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity:<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> listItems = numbers.map(<span class="function">(<span class="params">number</span>) =&gt;</span></span><br><span class="line">  &lt;li key=&#123;number.toString()&#125;&gt;</span><br><span class="line">    &#123;number&#125;</span><br><span class="line">  &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>说得挺清楚的了，key主要是用来帮助react进行 <strong>识别</strong> 组件更新/增加/删除，简单而言，react通过对key的识别从而分辨每一个组件在本次更新render的表现。<br>这样，有了key属性后，就可以与组件建立了一种对应关系，react根据key来决定是销毁重新创建组件还是更新组件。</p>
 <ol>
-<li><code>document.querySelector(&quot;#toast&quot;).className = &quot;toast&quot;</code>，去除当前动画</li>
-<li><code>window.requestAnimationFrame</code>告诉浏览器，我希望执行一次动画啦！赶紧给窝重绘</li>
-<li>在重绘的回调中再次添加动画</li>
-<li>然后浏览器<strong>重新绘制了页面</strong></li>
+<li>在存在相同key的情况下，若组件属性有所变化，则react只更新组件对应的属性</li>
+<li>在key不同的情况下，会销毁然后创建该组件</li>
 </ol>
-<p>看到一个其他的类似方案，在两次class的增删中添加如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">"#toast"</span>).className = <span class="string">"toast"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//重新设置一次offsetWidth</span></span><br><span class="line">element.offsetWidth = element.offsetWidth</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">"#toast"</span>).className = <span class="string">"toast show"</span></span><br></pre></td></tr></table></figure></p>
-<p>其实和<code>requestAnimationFrame</code>原理是一样的，根本原因是，一个animation只会在挂载到了dom上后触发一次，如何激活第二次甚至多次，实质上你要考虑的其实就是：</p>
+<p>说到底，key的作用就是更新组件时 <strong>判断两个节点是否相同</strong>。相同就复用，不相同就删除旧的创建新的。<br>另，这里说的key其实更类似于数据库中 <strong>主键</strong> 的思维，见过一些代码在遍历的时候把index作为key，是不太好的做法。</p>
+<h2 id="为什么不推荐使用index作为key"><a href="#为什么不推荐使用index作为key" class="headerlink" title="为什么不推荐使用index作为key"></a>为什么不推荐使用index作为key</h2><p>按照官方的说法，key最好是稳定且唯一的字符串。<br>从上文数组来说，将index作为key会发现bug依旧存在，因为每次render之后，数组更新渲染之后，每个选项的index依旧没变。这种情况下当遇到一些特殊的情况，比如是动态插入数据展示而非静态数组的时候，往往会出现视觉上的问题。</p>
 <blockquote>
-<p>你要如何让这个dom发生<strong>重绘</strong>或者<strong>重排</strong></p>
+<p>We don’t recommend using indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state. Check out Robin Pokorny’s article for an <a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318" target="_blank" rel="noopener">in-depth explanation on the negative impacts of using an index as a key.</a> If you choose not to assign an explicit key to list items then React will default to using indexes as keys.</p>
+<p>Here is an <a href="https://reactjs.org/docs/lists-and-keys.html#keys" target="_blank" rel="noopener">in-depth explanation about why keys are necessary</a> if you’re interested in learning more.</p>
 </blockquote>
-<p><code>offsetWidth</code>发生了重绘，所以重新计算后触发animation，<code>requestAnimationFrame</code>手动触发了一次重绘。包括remove节点后再次append，其实也就是触发一次重排。</p>
-<p>当然，这个api主要还是逐帧调用，每秒60次回调从而实现一些比较复杂的自定义动画。回调函数执行次数通常与浏览器刷新率一致，而且性能优秀。当成一个主动触发重绘的语法糖毕竟用途比较少。</p>
+<h2 id="可以不带key吗？"><a href="#可以不带key吗？" class="headerlink" title="可以不带key吗？"></a>可以不带key吗？</h2><p>不使用key的话，组件更新会采用<code>就地复用</code>的原则，所以到底是不是用取决于你自己的业务逻辑，如果可以十分之肯定所维护的遍历数组不可能出现以上的场景，或者说可以预见只会出现一些很简单的场景的话，在一个长列表下不使用key也可以，毕竟<code>就地复用</code>从性能上来说肯定更优。</p>
+<p>但是性能真的差到需要扣key来提升的话考虑不如考虑其他的性能优化方案。</p>
 
       
 
@@ -293,7 +296,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/11/requestAnimation/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/22/key/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -307,18 +310,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/22/key/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          key in react
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/07/07/transition/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">隐式转换</div>
+    <a href="/2019/08/11/requestAnimation/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">requestAnimationFrame</div>
       <i class="icon-circle-right"></i>
     </a>
   
