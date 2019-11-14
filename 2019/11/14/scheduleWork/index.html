@@ -20,7 +20,8 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/38184077/68595915-53e0ad80-04d5-11ea-94f1-1454fd7cf72f.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/38184077/68595943-5e9b4280-04d5-11ea-9f64-24a79761b424.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/38184077/68599473-96a58400-04db-11ea-89d6-eefdee21650b.png">
-<meta property="og:updated_time" content="2019-11-14T15:01:17.609Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/38184077/68866737-d06ec880-072f-11ea-9cd0-f2be394960db.png">
+<meta property="og:updated_time" content="2019-11-14T15:19:14.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scheduleWork">
 <meta name="twitter:description" content="偷一张讲fiber必定会看到的网图：不同于15的同步渲染，一旦组件调用嵌套过于深入的话，绘制一个组件可能会过长了阻塞渲染引擎，从而带给我们十分糟糕的体验。16变化了啥就不多讲了。主要看一下调度这东西具体的思路 那么必然就来要认识一个新api了：requestIdleCallbackrequestIdleCallback照例搬运mdn。  window.requestIdleCallback()方">
@@ -206,10 +207,8 @@
 <p>gg，咋办？自己造轮子啊！</p>
 <h3 id="requestAnimationFrame"><a href="#requestAnimationFrame" class="headerlink" title="requestAnimationFrame"></a>requestAnimationFrame</h3><p>又遇见这个b了，我记得以前还写过类似的。<a href="https://github.com/bibi7/fe-daily-increase/issues/19" target="_blank" rel="noopener">连接</a><br>再次总结一下几个注意的点：</p>
 <ol>
-<li><p>requestAnimationFrame 方法不同与 setTimeout 或 setInterval，它是由系统来决定回调函数的执行时机的，会请求浏览器在下一次重新渲染之前执行回调函数。并且是跟着显示器刷新率走的。</p>
-</li>
-<li><p>一帧中只会执行一次</p>
-</li>
+<li>requestAnimationFrame 方法不同与 setTimeout 或 setInterval，它是由系统来决定回调函数的执行时机的，会请求浏览器在下一次重新渲染之前执行回调函数。并且是跟着显示器刷新率走的。</li>
+<li>一帧中只会执行一次</li>
 </ol>
 <h3 id="一帧中发生了啥"><a href="#一帧中发生了啥" class="headerlink" title="一帧中发生了啥"></a>一帧中发生了啥</h3><p><img src="https://user-images.githubusercontent.com/38184077/68599473-96a58400-04db-11ea-89d6-eefdee21650b.png" alt="image"><br>通过上图可看到，一帧内需要完成如下六个步骤的任务：</p>
 <ol>
@@ -233,12 +232,15 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scheduleWork</span>(<span class="params">fiber: Fiber, expirationTime: ExpirationTime</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 获取FiberRoot</span></span><br><span class="line">  <span class="keyword">const</span> root = scheduleWorkToRoot(fiber, expirationTime);</span><br><span class="line">  <span class="keyword">if</span> (root === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这个分支表示高优先级任务打断低优先级任务</span></span><br><span class="line">  <span class="comment">// 这种情况发生于以下场景：有一个优先级较低的任务（必然是异步任务）没有执行完，</span></span><br><span class="line">  <span class="comment">// 执行权交给了浏览器，这个时候有一个新的高优先级任务进来了</span></span><br><span class="line">  <span class="comment">// 这时候需要去执行高优先级任务，所以需要打断低优先级任务</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !isWorking &amp;&amp;</span><br><span class="line">    nextRenderExpirationTime !== NoWork &amp;&amp;</span><br><span class="line">    expirationTime &lt; nextRenderExpirationTime</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="comment">// 记录被谁打断的</span></span><br><span class="line">    interruptedBy = fiber;</span><br><span class="line">    <span class="comment">// 重置 stack</span></span><br><span class="line">    resetStack();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ......</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    <span class="comment">// If we're in the render phase, we don't need to schedule this root</span></span><br><span class="line">    <span class="comment">// for an update, because we'll do it before we exit...</span></span><br><span class="line">    !isWorking ||</span><br><span class="line">    isCommitting ||</span><br><span class="line">    <span class="comment">// ...unless this is a different root than the one we're rendering.</span></span><br><span class="line">    nextRoot !== root</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">const</span> rootExpirationTime = root.expirationTime;</span><br><span class="line">    <span class="comment">// 请求任务</span></span><br><span class="line">    requestWork(root, rootExpirationTime);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在某些生命周期函数中 setState 会造成无限循环</span></span><br><span class="line">  <span class="comment">// 这里是告知你的代码触发无限循环了</span></span><br><span class="line">  <span class="keyword">if</span> (nestedUpdateCount &gt; NESTED_UPDATE_LIMIT) &#123;</span><br><span class="line">    <span class="comment">// Reset this back to zero so subsequent updates don't throw.</span></span><br><span class="line">    nestedUpdateCount = <span class="number">0</span>;</span><br><span class="line">    invariant(</span><br><span class="line">      <span class="literal">false</span>,</span><br><span class="line">      <span class="string">'Maximum update depth exceeded. This can happen when a '</span> +</span><br><span class="line">        <span class="string">'component repeatedly calls setState inside '</span> +</span><br><span class="line">        <span class="string">'componentWillUpdate or componentDidUpdate. React limits '</span> +</span><br><span class="line">        <span class="string">'the number of nested updates to prevent infinite loops.'</span>,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里一共做了几个事情：</p>
 <ol>
-<li><p><code>scheduleWorkToRoot</code>函数内部通过while循环的方式return出最顶部的root，找的时候会不停地设置每一个fiber的childExpirationTime，提高优先级</p>
-</li>
-<li><p>如果有更高的优先级，则记录被打断的fiber并且通过<code>resetStack</code>重置低优先级任务，并且取消造成的影响（具体实现没看）。</p>
-</li>
-<li><p><code>requestWork</code>开始请求任务，理解为开始进行调度的下一个工作吧。</p>
-</li>
+<li><code>scheduleWorkToRoot</code>函数内部通过while循环的方式return出最顶部的root，找的时候会不停地设置每一个fiber的childExpirationTime，提高优先级</li>
+<li>如果有更高的优先级，则记录被打断的fiber并且通过<code>resetStack</code>重置低优先级任务，并且取消造成的影响（具体实现没看）。</li>
+<li><code>requestWork</code>开始请求任务，理解为开始进行调度的下一个工作吧。</li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/38184077/68866737-d06ec880-072f-11ea-9cd0-f2be394960db.png" alt="image"><br>requestWork也做了这么几个事情：</p>
+<ol>
+<li>将root加入调度，<code>addRootToSchedule</code>方法判断root是否调度过，会有不同的处理方式。</li>
+<li>判断是否需要批量更新，这一段主要是批量设置<code>setState</code>使用的。</li>
+<li><code>scheduleCallbackWithExpirationTime</code>就是上文说的对requestIdleCallback的polyfill啦</li>
 </ol>
 
       
