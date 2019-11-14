@@ -277,6 +277,21 @@
     <article id="post-key" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/22/key/">react key</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/22/key/" class="archive-article-date">
+  	<time datetime="2019-09-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <p>日常开发中循环遍历真的是太正常不过的需求了，每个面向框架api开发者不免的都会写过类似的东西：<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.state = &#123;</span><br><span class="line">  info: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">render() &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    info</span><br><span class="line">  &#125; = <span class="keyword">this</span>.state;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span>(</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123;info.map(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;span&gt;&#123;item&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">          &lt;input type="text"/</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &#125;)&#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
