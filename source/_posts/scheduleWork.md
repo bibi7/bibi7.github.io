@@ -46,7 +46,6 @@ gg，咋办？自己造轮子啊！
 又遇见这个b了，我记得以前还写过类似的。[连接](https://github.com/bibi7/fe-daily-increase/issues/19)
 再次总结一下几个注意的点：
 1. requestAnimationFrame 方法不同与 setTimeout 或 setInterval，它是由系统来决定回调函数的执行时机的，会请求浏览器在下一次重新渲染之前执行回调函数。并且是跟着显示器刷新率走的。
-
 2. 一帧中只会执行一次
 
 
@@ -132,7 +131,12 @@ function scheduleWork(fiber: Fiber, expirationTime: ExpirationTime) {
 ```
 这里一共做了几个事情：
 1. `scheduleWorkToRoot`函数内部通过while循环的方式return出最顶部的root，找的时候会不停地设置每一个fiber的childExpirationTime，提高优先级
-
 2. 如果有更高的优先级，则记录被打断的fiber并且通过`resetStack`重置低优先级任务，并且取消造成的影响（具体实现没看）。
-
 3. `requestWork `开始请求任务，理解为开始进行调度的下一个工作吧。
+
+
+![image](https://user-images.githubusercontent.com/38184077/68866737-d06ec880-072f-11ea-9cd0-f2be394960db.png)
+requestWork也做了这么几个事情：
+1. 将root加入调度，`addRootToSchedule`方法判断root是否调度过，会有不同的处理方式。
+2. 判断是否需要批量更新，这一段主要是批量设置`setState`使用的。
+3. `scheduleCallbackWithExpirationTime`就是上文说的对requestIdleCallback的polyfill啦
