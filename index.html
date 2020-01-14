@@ -154,6 +154,61 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-router" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前端路由"><a href="#前端路由" class="headerlink" title="前端路由"></a>前端路由</h3><p>路由是spa应用很强大的一个地方，可以在一个页面通过不同的url展示不一样的内容，不管是vue还是react，实际上都是根据hash和history的特性来实现的路由系统，他们的最大的特性，都是可以通过改变url的同时不刷新页面展示。</p>
+<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><p>从以前古老的a标签增加锚点定位到页面上的某一个位置，其实就是最开始常用的用法。比如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#/someWhere"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--比如：//https://github.com/bibi7/fe-daily-increase/issues/#/someWhere--&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>可以采用<code>onhashchange</code>的方式监听hash变化</p>
+<h3 id="history"><a href="#history" class="headerlink" title="history"></a>history</h3><p><code>history</code>同样也可以用来进行url的增改，不过可能语法上有点不一样。一般来说常用的有：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">history.pushState(&#123;&#125;, <span class="literal">null</span>, path)</span><br><span class="line">history.replaceState(&#123;&#125;, <span class="literal">null</span>, path);</span><br></pre></td></tr></table></figure></p>
+<p>和hash不同的是，history触发的url变化没办法监听到。另外，二者在进行浏览器前进后退的时候，都可以采用监听<code>popstate</code>的方式。</p>
+<h3 id="实现一个基于react的简易版本："><a href="#实现一个基于react的简易版本：" class="headerlink" title="实现一个基于react的简易版本："></a>实现一个基于react的简易版本：</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//思路：</span></span><br><span class="line"><span class="comment">//页面进去的时候，初始化所有的router，维护一个实例队列</span></span><br><span class="line"><span class="comment">//通过页面上的组件点击触发路由事件，实例队列全部调用更新，判断是否要展示组件</span></span><br><span class="line"><span class="comment">//监听popstate事件，调用队列更新</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span></span><br><span class="line"><span class="keyword">const</span> routeInstance = [];</span><br><span class="line"><span class="keyword">const</span> register = <span class="function">(<span class="params">comp</span>) =&gt;</span> routeInstance.push(comp)</span><br><span class="line"><span class="keyword">const</span> unRegister = <span class="function">(<span class="params">comp</span>) =&gt;</span> routeInstance.splice(routeInstance.indexOf(comp), <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Party = <span class="function"><span class="params">()</span> =&gt;</span> </span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;Party&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> School = <span class="function"><span class="params">()</span> =&gt;</span> </span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;School&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Home = <span class="function"><span class="params">()</span> =&gt;</span> </span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;Home&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> forward = <span class="function">(<span class="params">path</span>) =&gt;</span> &#123;</span><br><span class="line">    history.pushState(&#123;&#125;, <span class="literal">null</span>, path)</span><br><span class="line">    routeInstance.forEach(<span class="function"><span class="params">item</span> =&gt;</span> item.forceUpdate())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> match = <span class="function">(<span class="params">pathname, option</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; path &#125; = option;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">`^<span class="subst">$&#123;path&#125;</span>`</span>).test(pathname)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'popstate'</span>, () =&gt; &#123;</span><br><span class="line">    routeInstance.forEach(<span class="function"><span class="params">item</span> =&gt;</span> item.forceUpdate())</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Route</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props)</span><br><span class="line">        register(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentWillUnmount() &#123;</span><br><span class="line">        unRegister(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123;</span><br><span class="line">            path,</span><br><span class="line">            component</span><br><span class="line">        &#125; = <span class="keyword">this</span>.props</span><br><span class="line">        <span class="keyword">const</span> isMatch = match(<span class="built_in">window</span>.location.pathname, &#123; path, &#125;)</span><br><span class="line">        <span class="keyword">if</span> (!isMatch) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (component) &#123;</span><br><span class="line">            <span class="keyword">return</span> React.createElement(component);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;ul&gt;</span><br><span class="line">                &lt;li&gt;</span><br><span class="line">                   &lt;button  onClick=&#123;() =&gt; &#123;forward(<span class="string">'home'</span>)&#125;&#125;&gt;go home&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>li&gt;</span><br><span class="line">                &lt;li&gt;</span><br><span class="line">                    &lt;button onClick=&#123;() =&gt; &#123;forward(<span class="string">'school'</span>)&#125;&#125;&gt;go school&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>li&gt;</span><br><span class="line">                &lt;li&gt;</span><br><span class="line">                    &lt;button onClick=&#123;() =&gt; &#123;forward(<span class="string">'party'</span>)&#125;&#125;&gt;go party&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">                &lt;/</span>li&gt;</span><br><span class="line">            &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">            &lt;Route path="/</span>party<span class="string">" component=&#123;Party&#125;/&gt;</span></span><br><span class="line"><span class="string">            &lt;Route path="</span>/school<span class="string">" component=&#123;School&#125;/&gt;</span></span><br><span class="line"><span class="string">            &lt;Route path="</span>/home<span class="string">" component=&#123;Home&#125;/&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;</span></span><br><span class="line"><span class="string">    )  </span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">ReactDOM.render(&lt;App /&gt;, document.querySelector('#root'))</span></span><br></pre></td></tr></table></figure>
+<p>简易版效果：<br><img src="https://user-images.githubusercontent.com/38184077/72221788-d13da280-3598-11ea-8d1e-a8ebbdb249b9.gif" alt="GIF"></p>
+<p>参考：<br><a href="https://github.com/joeyguo/blog/issues/2" target="_blank" rel="noopener">前端路由实现与 react-router 源码分析</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/14/router/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-scheduleWork" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -907,76 +962,9 @@
 
 
   
-    <article id="post-restartAnimation" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/02/restartAnimation/">restart animation</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/02/restartAnimation/" class="archive-article-date">
-  	<time datetime="2018-12-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>玩demo的时候碰到了需要重复触发animation的需要，稍微研究了一哈，主流的做法好像是写一个一模一样的animation然后切换使得触发动效？</p>
-<p>虽然感觉这方法怪蠢的，暂时没想到更好的，先记一下。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">&lt;template lang=<span class="string">"html"</span>&gt;</span><br><span class="line">  &lt;!--</span><br><span class="line">    show置为block激活animation，animationEnd时display置为none</span><br><span class="line">    fade与faded用于animation尚未结束时重新开始</span><br><span class="line">  --&gt;</span><br><span class="line">  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"popBox"</span> :<span class="class"><span class="keyword">class</span></span>=<span class="string">"[show ? 'show': '', fade ? 'fade' : 'faded']"</span> @animationend=<span class="string">"animationend"</span> ref=<span class="string">"popBox"</span>&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;clickText&#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">  name: 'popBox',</span></span><br><span class="line"><span class="regexp">  data() &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      show: false,</span></span><br><span class="line"><span class="regexp">      fade: true,</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  props: &#123;</span></span><br><span class="line"><span class="regexp">    clickText: &#123;</span></span><br><span class="line"><span class="regexp">      type: String,</span></span><br><span class="line"><span class="regexp">      default: 'some info',</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  methods: &#123;</span></span><br><span class="line"><span class="regexp">    animationend() &#123;</span></span><br><span class="line"><span class="regexp">      this.show = false;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  watch: &#123;</span></span><br><span class="line"><span class="regexp">    clickText(newValue, oldValue) &#123;</span></span><br><span class="line"><span class="regexp">      if(this.$refs.popBox.classList.contains('fade')) &#123;</span></span><br><span class="line"><span class="regexp">        this.fade = false</span></span><br><span class="line"><span class="regexp">      &#125; else &#123;</span></span><br><span class="line"><span class="regexp">        this.fade = true</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      this.show = true;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">&lt;style lang="less" scoped&gt;</span><br><span class="line">  <span class="selector-class">.popBox</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">opacity</span>: .<span class="number">8</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(-50%, -50%);</span><br><span class="line"></span><br><span class="line">    p &#123;</span><br><span class="line">      <span class="selector-tag">font-size</span>: <span class="selector-class">.9rem</span>;</span><br><span class="line">      <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-class">.fade</span> &#123;</span><br><span class="line">      <span class="attribute">animation</span>: fade <span class="number">2s</span> linear;</span><br><span class="line">      <span class="attribute">animation-fill-mode</span>: forwards;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-class">.faded</span> &#123;</span><br><span class="line">      <span class="attribute">animation</span>: faded <span class="number">2s</span> linear;</span><br><span class="line">      <span class="attribute">animation-fill-mode</span>: forwards;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-class">.show</span> &#123;</span><br><span class="line">      <span class="attribute">display</span>: block</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">keyframes</span> faded &#123;</span><br><span class="line">      0% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: .<span class="number">8</span></span><br><span class="line">      &#125;</span><br><span class="line">      50% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: .<span class="number">8</span></span><br><span class="line">      &#125;</span><br><span class="line">      80% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: .<span class="number">5</span></span><br><span class="line">      &#125;</span><br><span class="line">      100% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">keyframes</span> fade &#123;</span><br><span class="line">      0% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: .<span class="number">8</span></span><br><span class="line">      &#125;</span><br><span class="line">      50% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: .<span class="number">8</span></span><br><span class="line">      &#125;</span><br><span class="line">      80% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: .<span class="number">5</span></span><br><span class="line">      &#125;</span><br><span class="line">      100% &#123;</span><br><span class="line">        <span class="attribute">opacity</span>: <span class="number">0</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>like this ↓</strong><br><img src="/imgs/animation.gif" alt="text"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/02/restartAnimation/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -988,7 +976,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 哔哔
+    		&copy; 2020 哔哔
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
